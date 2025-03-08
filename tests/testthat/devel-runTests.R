@@ -20,12 +20,16 @@
 
   # Suppress warnings from calls to setupProject, simInit, and spades
   options("spades.test.suppressWarnings" = TRUE)
-
-  # Set custom input data location
-  options("reproducible.inputPaths" = NULL)
+  
+  # Set custom directory paths
+  ## Speed up tests by allowing inputs, cache, and R packages to persist between runs
+  options("spades.test.paths.inputs"   = NULL) # inputPath
+  options("spades.test.paths.cache"    = NULL) # cachePath
+  options("spades.test.paths.packages" = NULL) # packagePath
 
   # Test recreating the Python virtual environment
-  options("spades.test.virtualEnv" = TRUE)
+  ## WARNING: this will slow down testing, avoid unless Python is having issues
+  Sys.setenv(RETICULATE_VIRTUALENV_ROOT = file.path(tempdir(), "virtualenvs"))
 
 
 ## RUN ALL TESTS ----
